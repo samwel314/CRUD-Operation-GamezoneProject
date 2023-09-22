@@ -1,0 +1,44 @@
+﻿@using GameZone.Models.ViewModels;
+@using GameZone.wwwroot.Settings;
+@model IEnumerable<DispalyGameModel>
+@{
+    ViewData["Title"] = "Home Page";
+}
+@if (Model.Count () == 0)
+{
+    <div class="alert  alert-warning">
+        <h4 class="alert-heading">No Games !</h4>
+        <p class="mb-0">Add TO Show </p>
+    </div>
+}
+else
+{
+    <div class="row mt-5">
+        @foreach(var game in Model)
+        {
+        
+            <div class="col-lg-4 col-md-6">
+               <a class="card border-success mb-3 
+text-decoration-none rounded-3 overflow-hidden"
+           asp-controller="Games" asp-action="Details" asp-route-Id="@game.Id">
+                    <div class="card-body" style="background-image : url(@($"{StData.Filepath}/{game.ImageUrl}")) ; 
+                    background-position : center ;  background-size :cover ;height : 500px ; ">
+                    <div class="d-flex align-items-end h-100">
+                            <span class="badge bg-secondary rounded-0  fs-3">@game.CategoryName</span>
+                    </div>   
+                    </div>
+                    <div class="card-footer text-muted 
+d-flex justify-content-between align-items-center">
+                        <h5>@game.Name </h5>
+                        @foreach(var ic in game.Icons)
+                        {
+                            <i class="@ic me-2 fs-4"></i>
+                        }
+                    </div>
+
+               </a>
+         
+            </div>
+        }
+    </div>
+}

@@ -1,0 +1,57 @@
+﻿@using GameZone.Models.ViewModels;
+@model IEnumerable<DispalyGameModel>
+@{
+    ViewData["Title"] = "View Games"; 
+}
+
+
+<a class="btn btn-secondary btn-lg" asp-controller="Games" asp-action="Create">
+    <i class="bi bi-calendar2-plus-fill"></i> Create New Game
+   
+</a>
+@if (Model.Count() == 0)
+{
+    <div class="alert  alert-warning">
+        <h4 class="alert-heading">No Games !</h4>
+        <p class="mb-0">Add TO Show </p>
+    </div>
+}
+else
+{
+   <div class="mt-5">
+       <table class="table table-bordered border-primary">
+           <tbody>
+               @foreach (var game in Model)
+                {
+                    <tr class="border-1 border-success">
+                        <td>
+                            <div class="d-flex">
+                                <div class="p-4">
+                                <img style="max-width : 90px " src="~/Images/Games/@game.ImageUrl">
+                                </div>
+                            <div class="d-flex flex-column justify-content-center">
+                                <h4 class="text-light">@game.Name</h4>
+                                <h5>@game.CategoryName</h5>
+                            </div>
+                            </div>
+                        </td>
+                        <td class="align-middle"> 
+                            <div class="d-flex justify-content-end">
+                                <a asp-action="Edit" asp-route-Id="@game.Id" class="btn btn-info rounded rounded-3 me-3">
+                                    <i class="bi bi-pencil-fill"></i>
+                                </a>
+                                <a asp-action="Delete" class="btn btn-danger rounded rounded-3 js-delete" asp-route-Id="@game.Id" data-Id="@game.Id">
+                                    <i class="bi bi-trash3"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+       </table>
+   </div>
+}
+@section Scripts
+    {
+	<script src="~/js/gameindex.js" asp-append-version="true"></script>
+}
